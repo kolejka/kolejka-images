@@ -25,13 +25,15 @@ RUN apt-get -f -y install \
 
 RUN echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-selections
 
+#RUN echo "y" | unminimize
+
 RUN apt-get update && \
     apt-get -y dist-upgrade && \
     true
 
 RUN apt-get -f -y install \
         apt-utils \
-        python \
+        python3 \
         ubuntu-minimal \
         ubuntu-server \
         software-properties-common \
@@ -42,24 +44,24 @@ RUN apt-get update
 RUN apt-get -y dist-upgrade
 RUN apt-get --no-install-recommends -f -y install \
         a2ps \
+        cmake \
         fp-compiler \
         g++ \
+        g++-multilib \
         gcc \
         gcc-multilib \
-        g++-multilib \
+        git \
         iptables \
         libnss-myhostname \
         lzip \
         lzma \
         make \
         net-tools \
-        openjdk-8-jdk \
+        openjdk-11-jdk \
         p7zip-full \
         p7zip-rar \
-        python3-setproctitle \
-        python3-yaml \
-        python-setproctitle \
-        python-yaml \
+        python \
+        python3 \
         rar \
         time \
         unrar \
@@ -68,5 +70,10 @@ RUN apt-get --no-install-recommends -f -y install \
     && \
     true
 
-RUN sed -i /usr/lib/jvm/.java-1.8.0-openjdk-amd64.jinfo -e "s/^jdkhl/jdk/"
-RUN update-java-alternatives -s java-1.8.0-openjdk-amd64
+RUN update-java-alternatives -s java-1.11.0-openjdk-amd64
+
+RUN apt-add-repository ppa:kolejka/kolejka
+RUN apt-get -f -y install \
+        python3-kolejkaobserver \
+    && \
+    true
