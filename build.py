@@ -37,12 +37,16 @@ with open(IMAGES_PATH) as images_file:
                 build_tag = TEMPTAG+'/'+repository+':'+tag
                 subprocess.run(['docker', 'build', os.path.dirname(dfile_path), '--tag', build_tag], check=True)
                 for repo in repositories:
-                    if repo == TEMPTAG:
-                        continue
-                    pub_tag = repo + '/'+repository+':'+tag
-                    subprocess.run(['docker', 'rmi', pub_tag])
-                    subprocess.run(['docker', 'tag', build_tag, pub_tag], check=True)
-                    subprocess.run(['docker', 'push', pub_tag])
+                    try:
+                        if repo == TEMPTAG:
+                            continue
+                        pub_tag = repo + '/'+repository+':'+tag
+                        subprocess.run(['docker', 'rmi', pub_tag])
+                        subprocess.run(['docker', 'tag', build_tag, pub_tag], check=True)
+                        subprocess.run(['docker', 'push', pub_tag])
+                    except:
+                        traceback.print_exc()
+                        pass
                 if (TEMPTAG not in repositories) and (len(repositories) > 0):
                     subprocess.run(['docker', 'rmi', build_tag])
             except:
