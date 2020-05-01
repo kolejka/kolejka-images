@@ -63,6 +63,7 @@ RUN apt-get --no-install-recommends -f -y install \
         python \
         python3 \
         rar \
+        rsync \
         time \
         unrar \
         unzip \
