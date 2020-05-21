@@ -43,17 +43,43 @@ RUN apt-get -f -y install \
 RUN apt-get update
 RUN apt-get -y dist-upgrade
 RUN apt-get --no-install-recommends -f -y install \
+	ant \
+	ant-contrib \
+	bison \
+	cabal-install \
+	clang \
+	clang-format \
+	clang-tidy \
+	clang-tools \
         cmake \
+	coq \
+	erlang \
         fp-compiler \
         g++ \
+        g++-multilib \
         gcc \
+        gcc-multilib \
+	ghc \
+        git \
+	golang-go \
+	golang-go.tools \
+	gprolog \
+	libcgal-dev \
+	libgmp-dev \
+	libglpk-dev \
         make \
+	mlton \
+	mono-complete \
+	nasm \
         openjdk-14-jdk \
         p7zip-full \
         p7zip-rar \
+	postgresql \
         python3 \
 	python3-dev \
         rsync \
+	sqlite3 \
+	valgrind \
         zip \
     && \
     true
