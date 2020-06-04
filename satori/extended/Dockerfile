@@ -62,7 +62,6 @@ RUN apt-get --no-install-recommends -f -y install \
 	ghc \
         git \
 	golang-go \
-	golang-go.tools \
 	gprolog \
 	libcgal-dev \
 	libgmp-dev \
