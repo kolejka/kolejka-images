@@ -27,7 +27,7 @@ with open(IMAGES_PATH) as images_file:
         line = line.strip()
         if line.startswith('#'):
             continue
-        m = re.match(r'([a-z]+):([a-z.0-9]+)', line)
+        m = re.match(r'([a-z_]+):([a-z.0-9_]+)', line)
         if m:
             repository = m.group(1)
             tag = m.group(2)
