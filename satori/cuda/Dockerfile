@@ -39,7 +39,7 @@ RUN apt-get --no-install-recommends -f -y install \
         g++ \
         gcc \
         make \
-        openjdk-14-jdk \
+        openjdk-16-jdk \
         p7zip-full \
         p7zip-rar \
         python3 \
@@ -49,7 +49,7 @@ RUN apt-get --no-install-recommends -f -y install \
     && \
     true
 
-RUN update-java-alternatives -s java-1.14.0-openjdk-amd64
+RUN update-java-alternatives -s java-1.16.0-openjdk-amd64
 
 RUN apt-add-repository ppa:kolejka/kolejka && \
     apt-get -f -y install \
