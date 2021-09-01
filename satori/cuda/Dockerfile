@@ -57,32 +57,16 @@ RUN apt-add-repository ppa:kolejka/kolejka && \
     && \
     true
 
-RUN apt-get --no-install-recommends -f -y install \
-	    ant \
-	    ant-contrib \
-	    bison \
-	    cabal-install \
-	    clang \
-	    clang-format \
-	    clang-tidy \
-	    clang-tools \
-	    coq \
-	    erlang \
-        g++-multilib \
-        gcc-multilib \
-	    ghc \
-        git \
-	    golang-go \
-	    gprolog \
-	    libcgal-dev \
-	    libgmp-dev \
-	    libglpk-dev \
-	    mlton \
-	    mono-complete \
-	    nasm \
-	    postgresql \
-	    sqlite3 \
-	    valgrind \
+RUN echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /" >> /etc/apt/sources.list && \
+    echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64 /" >> /etc/apt/sources.list && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-key F60F4B3D7FA2AF80 C45B1676A04EA552 && \
+    apt-get update && \
+    apt-get -f -y install \
+        cuda-command-line-tools-11.4 \
+        cuda-libraries-dev-11-4 \
+        cuda-nsight-11-4 \
+        cuda-nsight-compute-11-4 \
+        cuda-nvcc-11.4 \
     && \
     true
 
