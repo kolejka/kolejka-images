@@ -44,6 +44,7 @@ RUN apt-get --no-install-recommends -f -y install \
         p7zip-rar \
         python3 \
 	    python3-dev \
+	    python3-numpy \
         rsync \
         zip \
     && \
@@ -62,11 +63,11 @@ RUN echo "deb [by-hash=no] http://developer.download.nvidia.com/compute/cuda/rep
     apt-key adv --keyserver keyserver.ubuntu.com --recv-key F60F4B3D7FA2AF80 C45B1676A04EA552 && \
     apt-get update && \
     apt-get -f -y install \
-        cuda-command-line-tools-11.4 \
+        cuda-command-line-tools-11-4 \
         cuda-libraries-dev-11-4 \
         cuda-nsight-11-4 \
         cuda-nsight-compute-11-4 \
-        cuda-nvcc-11.4 \
+        cuda-nvcc-11-4 \
     && \
     true
 

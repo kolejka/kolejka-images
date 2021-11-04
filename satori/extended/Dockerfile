@@ -44,6 +44,7 @@ RUN apt-get --no-install-recommends -f -y install \
         p7zip-rar \
         python3 \
 	    python3-dev \
+	    python3-numpy \
         rsync \
         zip \
     && \
@@ -81,6 +82,7 @@ RUN apt-get --no-install-recommends -f -y install \
 	    mono-complete \
 	    nasm \
 	    postgresql \
+	    python3-numpy \
 	    sqlite3 \
 	    valgrind \
     && \
