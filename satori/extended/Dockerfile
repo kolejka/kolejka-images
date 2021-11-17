@@ -43,8 +43,8 @@ RUN apt-get --no-install-recommends -f -y install \
         p7zip-full \
         p7zip-rar \
         python3 \
-	    python3-dev \
-	    python3-numpy \
+        python3-dev \
+        python3-numpy \
         rsync \
         zip \
     && \
@@ -59,32 +59,33 @@ RUN apt-add-repository ppa:kolejka/kolejka && \
     true
 
 RUN apt-get --no-install-recommends -f -y install \
-	    ant \
-	    ant-contrib \
-	    bison \
-	    cabal-install \
-	    clang \
-	    clang-format \
-	    clang-tidy \
-	    clang-tools \
-	    coq \
-	    erlang \
+        ant \
+        ant-contrib \
+        bison \
+        cabal-install \
+        clang \
+        clang-format \
+        clang-tidy \
+        clang-tools \
+        coq \
+        erlang \
         g++-multilib \
         gcc-multilib \
-	    ghc \
+        ghc \
         git \
-	    golang-go \
-	    gprolog \
-	    libcgal-dev \
-	    libgmp-dev \
-	    libglpk-dev \
-	    mlton \
-	    mono-complete \
-	    nasm \
-	    postgresql \
-	    python3-numpy \
-	    sqlite3 \
-	    valgrind \
+        golang-go \
+        gprolog \
+        gradle \
+        libcgal-dev \
+        libgmp-dev \
+        libglpk-dev \
+        mlton \
+        mono-complete \
+        nasm \
+        postgresql \
+        python3-numpy \
+        sqlite3 \
+        valgrind \
     && \
     true
 

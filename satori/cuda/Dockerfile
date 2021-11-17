@@ -43,8 +43,8 @@ RUN apt-get --no-install-recommends -f -y install \
         p7zip-full \
         p7zip-rar \
         python3 \
-	    python3-dev \
-	    python3-numpy \
+        python3-dev \
+        python3-numpy \
         rsync \
         zip \
     && \
