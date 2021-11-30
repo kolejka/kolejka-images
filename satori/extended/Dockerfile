@@ -75,7 +75,6 @@ RUN apt-get --no-install-recommends -f -y install \
         git \
         golang-go \
         gprolog \
-        gradle \
         libcgal-dev \
         libgmp-dev \
         libglpk-dev \
@@ -87,6 +86,14 @@ RUN apt-get --no-install-recommends -f -y install \
         sqlite3 \
         valgrind \
     && \
+    true
+
+RUN curl --location --silent --output /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-7.3-bin.zip" && \
+    echo "de8f52ad49bdc759164f72439a3bf56ddb1589c4cde802d3cec7d6ad0e0ee410 /tmp/gradle.zip" | sha256sum --quiet --strict --check - && \
+    7z x -y -aoa -bb0 -bd -o/opt /tmp/gradle.zip && \
+    rm -f /tmp/gradle.zip && \
+    mv /opt/gradle-7.3 /opt/gradle && \
+    ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle && \
     true
 
 RUN apt-get -y autoremove
