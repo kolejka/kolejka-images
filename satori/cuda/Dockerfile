@@ -63,11 +63,11 @@ RUN echo "deb [by-hash=no] http://developer.download.nvidia.com/compute/cuda/rep
     apt-key adv --keyserver keyserver.ubuntu.com --recv-key F60F4B3D7FA2AF80 C45B1676A04EA552 && \
     apt-get update && \
     apt-get -f -y install \
-        cuda-command-line-tools-11-5 \
-        cuda-libraries-dev-11-5 \
-        cuda-nsight-11-5 \
-        cuda-nsight-compute-11-5 \
-        cuda-nvcc-11-5 \
+        cuda-command-line-tools-11-6 \
+        cuda-libraries-dev-11-6 \
+        cuda-nsight-11-6 \
+        cuda-nsight-compute-11-6 \
+        cuda-nvcc-11-6 \
     && \
     true
 
