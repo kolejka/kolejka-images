@@ -69,6 +69,7 @@ RUN apt-get --no-install-recommends -f -y install \
         clang-tools \
         coq \
         erlang \
+        g++-10 \
         g++-multilib \
         gcc-multilib \
         ghc \
@@ -88,12 +89,20 @@ RUN apt-get --no-install-recommends -f -y install \
     && \
     true
 
-RUN curl --location --silent --output /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-7.3-bin.zip" && \
-    echo "de8f52ad49bdc759164f72439a3bf56ddb1589c4cde802d3cec7d6ad0e0ee410 /tmp/gradle.zip" | sha256sum --quiet --strict --check - && \
+RUN curl --location --silent --output /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-7.4-bin.zip" && \
+    echo "8cc27038d5dbd815759851ba53e70cf62e481b87494cc97cfd97982ada5ba634 /tmp/gradle.zip" | sha256sum --quiet --strict --check - && \
     7z x -y -aoa -bb0 -bd -o/opt /tmp/gradle.zip && \
     rm -f /tmp/gradle.zip && \
-    mv /opt/gradle-7.3 /opt/gradle && \
+    mv /opt/gradle-7.4 /opt/gradle && \
     ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle && \
+    true
+
+RUN curl --location --silent --output /tmp/maven.zip "https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.zip" && \
+    echo "ccd67d1ee4fd79339c9b6f95d1e5e1e0e0209a8c1b095d9291e009afa0a492a5 /tmp/maven.zip" |sha256sum --quiet --strict --check - && \
+    7z x -y -aoa -bb0 -bd -o/opt /tmp/maven.zip && \
+    rm -f /tmp/maven.zip && \
+    mv /opt/apache-maven-3.8.4 /opt/maven && \
+    ln -s /opt/maven/bin/mvn /usr/local/bin/mvn && \
     true
 
 RUN apt-get -y autoremove
