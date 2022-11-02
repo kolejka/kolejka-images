@@ -64,6 +64,7 @@ RUN curl --silent --show-error --fail --location --output /tmp/cuda.deb "https:/
     rm -f /tmp/cuda.deb && \
     apt-get update && \
     apt-get -f -y install \
+        libnvidia-compute-515 \
         cuda-command-line-tools-11-8 \
         cuda-libraries-dev-11-8 \
         cuda-nsight-11-8 \
