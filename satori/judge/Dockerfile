@@ -18,6 +18,7 @@ RUN echo "deb     http://archive.ubuntu.com/ubuntu/ focal           main restric
     apt-get -f -y install \
         apt-transport-https \
         apt-utils \
+        curl \
         locales \
         software-properties-common \
     && \

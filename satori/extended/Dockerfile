@@ -18,6 +18,7 @@ RUN echo "deb     http://archive.ubuntu.com/ubuntu/ focal           main restric
     apt-get -f -y install \
         apt-transport-https \
         apt-utils \
+        curl \
         locales \
         software-properties-common \
     && \
@@ -89,16 +90,16 @@ RUN apt-get --no-install-recommends -f -y install \
     && \
     true
 
-RUN curl --location --silent --output /tmp/dotnet.deb "https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb" && \
+RUN curl --silent --show-error --fail --location --output /tmp/dotnet.deb "https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb" && \
     dpkg -i /tmp/dotnet.deb && \
-    rm /tmp/dotnet.deb && \
+    rm -f /tmp/dotnet.deb && \
     apt-get update && \
     apt-get -f -y install \
         dotnet-sdk-6.0 \
     && \
     true
 
-RUN curl --location --silent --output /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-7.5.1-bin.zip" && \
+RUN curl --silent --show-error --fail --location --output /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-7.5.1-bin.zip" && \
     echo "f6b8596b10cce501591e92f229816aa4046424f3b24d771751b06779d58c8ec4 /tmp/gradle.zip" | sha256sum --quiet --strict --check - && \
     7z x -y -aoa -bb0 -bd -o/opt /tmp/gradle.zip && \
     rm -f /tmp/gradle.zip && \
@@ -106,7 +107,7 @@ RUN curl --location --silent --output /tmp/gradle.zip "https://services.gradle.o
     ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle && \
     true
 
-RUN curl --location --silent --output /tmp/maven.zip "https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip" && \
+RUN curl --silent --show-error --fail --location --output /tmp/maven.zip "https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip" && \
     echo "ccf20a80e75a17ffc34d47c5c95c98c39d426ca17d670f09cd91e877072a9309 /tmp/maven.zip" |sha256sum --quiet --strict --check - && \
     7z x -y -aoa -bb0 -bd -o/opt /tmp/maven.zip && \
     rm -f /tmp/maven.zip && \

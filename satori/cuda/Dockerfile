@@ -18,6 +18,7 @@ RUN echo "deb     http://archive.ubuntu.com/ubuntu/ focal           main restric
     apt-get -f -y install \
         apt-transport-https \
         apt-utils \
+        curl \
         locales \
         software-properties-common \
     && \
@@ -58,8 +59,9 @@ RUN apt-add-repository ppa:kolejka/kolejka && \
     && \
     true
 
-RUN curl --location --silent --output /tmp/cuda.deb "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb" && \
+RUN curl --silent --show-error --fail --location --output /tmp/cuda.deb "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb" && \
     dpkg -i /tmp/cuda.deb && \
+    rm -f /tmp/cuda.deb && \
     apt-get update && \
     apt-get -f -y install \
         cuda-command-line-tools-11-8 \
