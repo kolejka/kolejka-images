@@ -58,16 +58,15 @@ RUN apt-add-repository ppa:kolejka/kolejka && \
     && \
     true
 
-RUN echo "deb [by-hash=no] http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /" > /etc/apt/sources.list.d/nvidia.list && \
-    echo "deb [by-hash=no] http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64 /" >> /etc/apt/sources.list.d/nvidia.list && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-key F60F4B3D7FA2AF80 C45B1676A04EA552 && \
+RUN curl --location --silent --output /tmp/cuda.deb "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb" && \
+    dpkg -i /tmp/cuda.deb && \
     apt-get update && \
     apt-get -f -y install \
-        cuda-command-line-tools-11-6 \
-        cuda-libraries-dev-11-6 \
-        cuda-nsight-11-6 \
-        cuda-nsight-compute-11-6 \
-        cuda-nvcc-11-6 \
+        cuda-command-line-tools-11-8 \
+        cuda-libraries-dev-11-8 \
+        cuda-nsight-11-8 \
+        cuda-nsight-compute-11-8 \
+        cuda-nvcc-11-8 \
     && \
     true
 

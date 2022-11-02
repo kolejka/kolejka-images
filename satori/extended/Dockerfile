@@ -89,19 +89,28 @@ RUN apt-get --no-install-recommends -f -y install \
     && \
     true
 
-RUN curl --location --silent --output /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-7.4-bin.zip" && \
-    echo "8cc27038d5dbd815759851ba53e70cf62e481b87494cc97cfd97982ada5ba634 /tmp/gradle.zip" | sha256sum --quiet --strict --check - && \
+RUN curl --location --silent --output /tmp/dotnet.deb "https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb" && \
+    dpkg -i /tmp/dotnet.deb && \
+    rm /tmp/dotnet.deb && \
+    apt-get update && \
+    apt-get -f -y install \
+        dotnet-sdk-6.0 \
+    && \
+    true
+
+RUN curl --location --silent --output /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-7.5.1-bin.zip" && \
+    echo "f6b8596b10cce501591e92f229816aa4046424f3b24d771751b06779d58c8ec4 /tmp/gradle.zip" | sha256sum --quiet --strict --check - && \
     7z x -y -aoa -bb0 -bd -o/opt /tmp/gradle.zip && \
     rm -f /tmp/gradle.zip && \
-    mv /opt/gradle-7.4 /opt/gradle && \
+    mv /opt/gradle-7.5.1 /opt/gradle && \
     ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle && \
     true
 
-RUN curl --location --silent --output /tmp/maven.zip "https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.zip" && \
-    echo "ccd67d1ee4fd79339c9b6f95d1e5e1e0e0209a8c1b095d9291e009afa0a492a5 /tmp/maven.zip" |sha256sum --quiet --strict --check - && \
+RUN curl --location --silent --output /tmp/maven.zip "https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip" && \
+    echo "ccf20a80e75a17ffc34d47c5c95c98c39d426ca17d670f09cd91e877072a9309 /tmp/maven.zip" |sha256sum --quiet --strict --check - && \
     7z x -y -aoa -bb0 -bd -o/opt /tmp/maven.zip && \
     rm -f /tmp/maven.zip && \
-    mv /opt/apache-maven-3.8.4 /opt/maven && \
+    mv /opt/apache-maven-3.8.6 /opt/maven && \
     ln -s /opt/maven/bin/mvn /usr/local/bin/mvn && \
     true
 
