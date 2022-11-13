@@ -95,7 +95,7 @@ RUN curl --silent --show-error --fail --location --output /tmp/dotnet.deb "https
     rm -f /tmp/dotnet.deb && \
     apt-get update && \
     apt-get -f -y install \
-        dotnet-sdk-6.0 \
+        dotnet-sdk-7.0 \
     && \
     true
 
