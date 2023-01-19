@@ -64,11 +64,11 @@ RUN curl --silent --show-error --fail --location --output /tmp/cuda.deb "https:/
     rm -f /tmp/cuda.deb && \
     apt-get update && \
     apt-get -f -y install \
-        cuda-command-line-tools-11-8 \
-        cuda-libraries-dev-11-8 \
-        cuda-nsight-11-8 \
-        cuda-nsight-compute-11-8 \
-        cuda-nvcc-11-8 \
+        cuda-command-line-tools-12-0 \
+        cuda-libraries-dev-12-0 \
+        cuda-nsight-12-0 \
+        cuda-nsight-compute-12-0 \
+        cuda-nvcc-12-0 \
     && \
     true
 
