@@ -99,19 +99,19 @@ RUN curl --silent --show-error --fail --location --output /tmp/dotnet.deb "https
     && \
     true
 
-RUN curl --silent --show-error --fail --location --output /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-7.5.1-bin.zip" && \
-    echo "f6b8596b10cce501591e92f229816aa4046424f3b24d771751b06779d58c8ec4 /tmp/gradle.zip" | sha256sum --quiet --strict --check - && \
+RUN curl --silent --show-error --fail --location --output /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-7.6.1-bin.zip" && \
+    echo "6147605a23b4eff6c334927a86ff3508cb5d6722cd624c97ded4c2e8640f1f87 /tmp/gradle.zip" | sha256sum --quiet --strict --check - && \
     7z x -y -aoa -bb0 -bd -o/opt /tmp/gradle.zip && \
     rm -f /tmp/gradle.zip && \
-    mv /opt/gradle-7.5.1 /opt/gradle && \
+    mv /opt/gradle-7.6.1 /opt/gradle && \
     ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle && \
     true
 
-RUN curl --silent --show-error --fail --location --output /tmp/maven.zip "https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip" && \
-    echo "ccf20a80e75a17ffc34d47c5c95c98c39d426ca17d670f09cd91e877072a9309 /tmp/maven.zip" |sha256sum --quiet --strict --check - && \
+RUN curl --silent --show-error --fail --location --output /tmp/maven.zip "https://dlcdn.apache.org/maven/maven-3/3.9.1/binaries/apache-maven-3.9.1-bin.zip" && \
+    echo "4ae5a0d17f9e6cbe57640c481f426a9184dfb451c2bb7cc7db324da095f616a14e7c482a79240e5286e241d8cd2805ea1cd9c95e38954101c2fa4088baad9a1a /tmp/maven.zip" |sha512sum --quiet --strict --check - && \
     7z x -y -aoa -bb0 -bd -o/opt /tmp/maven.zip && \
     rm -f /tmp/maven.zip && \
-    mv /opt/apache-maven-3.8.6 /opt/maven && \
+    mv /opt/apache-maven-3.9.1 /opt/maven && \
     ln -s /opt/maven/bin/mvn /usr/local/bin/mvn && \
     true
 
