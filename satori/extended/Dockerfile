@@ -64,6 +64,7 @@ RUN apt-get --no-install-recommends -f -y install \
         ant-contrib \
         bison \
         cabal-install \
+        cargo \
         clang \
         clang-format \
         clang-tidy \
