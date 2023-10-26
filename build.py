@@ -35,7 +35,7 @@ with open(IMAGES_PATH) as images_file:
             dfile_path = os.path.join(build_dir, DFILE)
             try:
                 build_tag = TEMPTAG+'/'+repository+':'+tag
-                subprocess.run(['docker', 'build', os.path.dirname(dfile_path), '--tag', build_tag], check=True)
+                subprocess.run(['docker', 'build', '--no-cache', os.path.dirname(dfile_path), '--tag', build_tag], check=True)
                 for repo in repositories:
                     try:
                         if repo == TEMPTAG:
