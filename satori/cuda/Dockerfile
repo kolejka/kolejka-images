@@ -1,4 +1,10 @@
-FROM ubuntu:focal
+ARG UBUNTU_NAME=focal
+FROM ubuntu:${UBUNTU_NAME}
+ARG UBUNTU_NAME
+ARG UBUNTU_RELEASE=20.04
+ARG UBUNTU_RELEASE_SIMPLE=2004
+ARG CUDA_VERSION=12-2
+ARG OPENJDK_VERSION=17
 MAINTAINER KOLEJKA <kolejka@matinf.uj.edu.pl>
 ENTRYPOINT ["/bin/bash"]
 WORKDIR /root
@@ -10,10 +16,10 @@ ENV DEBIAN_PRIORITY critical
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN rm -f /etc/apt/sources.list.d/*
-RUN echo "deb     http://archive.ubuntu.com/ubuntu/ focal           main restricted universe multiverse" >  /etc/apt/sources.list && \
-    echo "deb     http://archive.ubuntu.com/ubuntu/ focal-updates   main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb     http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb     http://security.ubuntu.com/ubuntu focal-security  main restricted universe multiverse" >> /etc/apt/sources.list && \
+RUN echo "deb     http://archive.ubuntu.com/ubuntu/ ${UBUNTU_NAME}           main restricted universe multiverse" >  /etc/apt/sources.list && \
+    echo "deb     http://archive.ubuntu.com/ubuntu/ ${UBUNTU_NAME}-updates   main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb     http://archive.ubuntu.com/ubuntu/ ${UBUNTU_NAME}-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb     http://security.ubuntu.com/ubuntu ${UBUNTU_NAME}-security  main restricted universe multiverse" >> /etc/apt/sources.list && \
     apt-get update && \
     apt-get -f -y install \
         apt-transport-https \
@@ -40,7 +46,7 @@ RUN apt-get --no-install-recommends -f -y install \
         g++ \
         gcc \
         make \
-        openjdk-17-jdk \
+        openjdk-${OPENJDK_VERSION}-jdk \
         p7zip-full \
         p7zip-rar \
         python3 \
@@ -51,24 +57,18 @@ RUN apt-get --no-install-recommends -f -y install \
     && \
     true
 
-RUN update-java-alternatives -s java-1.17.0-openjdk-amd64
+RUN update-java-alternatives -s java-1.${OPENJDK_VERSION}.0-openjdk-amd64
 
-RUN apt-add-repository ppa:kolejka/kolejka && \
-    apt-get -f -y install \
-        python3-kolejkaobserver \
-    && \
-    true
-
-RUN curl --silent --show-error --fail --location --output /tmp/cuda.deb "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb" && \
+RUN curl --silent --show-error --fail --location --output /tmp/cuda.deb "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${UBUNTU_RELEASE_SIMPLE}/x86_64/cuda-keyring_1.0-1_all.deb" && \
     dpkg -i /tmp/cuda.deb && \
     rm -f /tmp/cuda.deb && \
     apt-get update && \
     apt-get -f -y install \
-        cuda-command-line-tools-12-2 \
-        cuda-libraries-dev-12-2 \
-        cuda-nsight-12-2 \
-        cuda-nsight-compute-12-2 \
-        cuda-nvcc-12-2 \
+        cuda-command-line-tools-${CUDA_VERSION} \
+        cuda-libraries-dev-${CUDA_VERSION} \
+        cuda-nsight-${CUDA_VERSION} \
+        cuda-nsight-compute-${CUDA_VERSION} \
+        cuda-nvcc-${CUDA_VERSION} \
     && \
     true
 

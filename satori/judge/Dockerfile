@@ -1,4 +1,9 @@
-FROM ubuntu:focal
+ARG UBUNTU_NAME=focal
+FROM ubuntu:${UBUNTU_NAME}
+ARG UBUNTU_NAME
+ARG UBUNTU_RELEASE=20.04
+ARG UBUNTU_RELEASE_SIMPLE=2004
+ARG OPENJDK_VERSION=17
 MAINTAINER KOLEJKA <kolejka@matinf.uj.edu.pl>
 ENTRYPOINT ["/bin/bash"]
 WORKDIR /root
@@ -10,10 +15,10 @@ ENV DEBIAN_PRIORITY critical
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN rm -f /etc/apt/sources.list.d/*
-RUN echo "deb     http://archive.ubuntu.com/ubuntu/ focal           main restricted universe multiverse" >  /etc/apt/sources.list && \
-    echo "deb     http://archive.ubuntu.com/ubuntu/ focal-updates   main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb     http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb     http://security.ubuntu.com/ubuntu focal-security  main restricted universe multiverse" >> /etc/apt/sources.list && \
+RUN echo "deb     http://archive.ubuntu.com/ubuntu/ ${UBUNTU_NAME}           main restricted universe multiverse" >  /etc/apt/sources.list && \
+    echo "deb     http://archive.ubuntu.com/ubuntu/ ${UBUNTU_NAME}-updates   main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb     http://archive.ubuntu.com/ubuntu/ ${UBUNTU_NAME}-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb     http://security.ubuntu.com/ubuntu ${UBUNTU_NAME}-security  main restricted universe multiverse" >> /etc/apt/sources.list && \
     apt-get update && \
     apt-get -f -y install \
         apt-transport-https \
@@ -40,7 +45,7 @@ RUN apt-get --no-install-recommends -f -y install \
         g++ \
         gcc \
         make \
-        openjdk-17-jdk \
+        openjdk-${OPENJDK_VERSION}-jdk \
         p7zip-full \
         p7zip-rar \
         python3 \
@@ -51,12 +56,6 @@ RUN apt-get --no-install-recommends -f -y install \
     && \
     true
 
-RUN update-java-alternatives -s java-1.17.0-openjdk-amd64
-
-RUN apt-add-repository ppa:kolejka/kolejka && \
-    apt-get -f -y install \
-        python3-kolejkaobserver \
-    && \
-    true
+RUN update-java-alternatives -s java-1.${OPENJDK_VERSION}.0-openjdk-amd64
 
 RUN apt-get -y autoremove

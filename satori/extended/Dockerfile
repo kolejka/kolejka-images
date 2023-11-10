@@ -1,4 +1,12 @@
-FROM ubuntu:focal
+ARG UBUNTU_NAME=focal
+FROM ubuntu:${UBUNTU_NAME}
+ARG UBUNTU_NAME
+ARG UBUNTU_RELEASE=20.04
+ARG UBUNTU_RELEASE_SIMPLE=2004
+ARG DOTNET_VERSION=7.0
+ARG GRADLE_VERSION=8.4
+ARG MAVEN_VERSION=3.9.5
+ARG OPENJDK_VERSION=17
 MAINTAINER KOLEJKA <kolejka@matinf.uj.edu.pl>
 ENTRYPOINT ["/bin/bash"]
 WORKDIR /root
@@ -10,10 +18,10 @@ ENV DEBIAN_PRIORITY critical
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN rm -f /etc/apt/sources.list.d/*
-RUN echo "deb     http://archive.ubuntu.com/ubuntu/ focal           main restricted universe multiverse" >  /etc/apt/sources.list && \
-    echo "deb     http://archive.ubuntu.com/ubuntu/ focal-updates   main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb     http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb     http://security.ubuntu.com/ubuntu focal-security  main restricted universe multiverse" >> /etc/apt/sources.list && \
+RUN echo "deb     http://archive.ubuntu.com/ubuntu/ ${UBUNTU_NAME}           main restricted universe multiverse" >  /etc/apt/sources.list && \
+    echo "deb     http://archive.ubuntu.com/ubuntu/ ${UBUNTU_NAME}-updates   main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb     http://archive.ubuntu.com/ubuntu/ ${UBUNTU_NAME}-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb     http://security.ubuntu.com/ubuntu ${UBUNTU_NAME}-security  main restricted universe multiverse" >> /etc/apt/sources.list && \
     apt-get update && \
     apt-get -f -y install \
         apt-transport-https \
@@ -40,7 +48,7 @@ RUN apt-get --no-install-recommends -f -y install \
         g++ \
         gcc \
         make \
-        openjdk-17-jdk \
+        openjdk-${OPENJDK_VERSION}-jdk \
         p7zip-full \
         p7zip-rar \
         python3 \
@@ -51,13 +59,7 @@ RUN apt-get --no-install-recommends -f -y install \
     && \
     true
 
-RUN update-java-alternatives -s java-1.17.0-openjdk-amd64
-
-RUN apt-add-repository ppa:kolejka/kolejka && \
-    apt-get -f -y install \
-        python3-kolejkaobserver \
-    && \
-    true
+RUN update-java-alternatives -s java-1.${OPENJDK_VERSION}.0-openjdk-amd64
 
 RUN apt-get --no-install-recommends -f -y install \
         ant \
@@ -91,28 +93,26 @@ RUN apt-get --no-install-recommends -f -y install \
     && \
     true
 
-RUN curl --silent --show-error --fail --location --output /tmp/dotnet.deb "https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb" && \
+RUN curl --silent --show-error --fail --location --output /tmp/dotnet.deb "https://packages.microsoft.com/config/ubuntu/${UBUNTU_RELEASE}/packages-microsoft-prod.deb" && \
     dpkg -i /tmp/dotnet.deb && \
     rm -f /tmp/dotnet.deb && \
     apt-get update && \
     apt-get -f -y install \
-        dotnet-sdk-7.0 \
+        dotnet-sdk-${DOTNET_VERSION} \
     && \
     true
 
-RUN curl --silent --show-error --fail --location --output /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-8.4-bin.zip" && \
-    echo "3e1af3ae886920c3ac87f7a91f816c0c7c436f276a6eefdb3da152100fef72ae /tmp/gradle.zip" | sha256sum --quiet --strict --check - && \
+RUN curl --silent --show-error --fail --location --output /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" && \
     7z x -y -aoa -bb0 -bd -o/opt /tmp/gradle.zip && \
     rm -f /tmp/gradle.zip && \
-    mv /opt/gradle-8.4 /opt/gradle && \
+    mv /opt/gradle-${GRADLE_VERSION} /opt/gradle && \
     ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle && \
     true
 
-RUN curl --silent --show-error --fail --location --output /tmp/maven.zip "https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.zip" && \
-    echo "ca59380b839c6bea8f464a08bb7873a1cab91007b95876ba9ed8a9a2b03ceac893e661d218ba3d4af3ccf46d26600fc4c59fccabba9d7b2cc4adcd8aecc1df2a /tmp/maven.zip" |sha512sum --quiet --strict --check - && \
+RUN curl --silent --show-error --fail --location --output /tmp/maven.zip "https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip" && \
     7z x -y -aoa -bb0 -bd -o/opt /tmp/maven.zip && \
     rm -f /tmp/maven.zip && \
-    mv /opt/apache-maven-3.9.5 /opt/maven && \
+    mv /opt/apache-maven-${MAVEN_VERSION} /opt/maven && \
     ln -s /opt/maven/bin/mvn /usr/local/bin/mvn && \
     true
 
