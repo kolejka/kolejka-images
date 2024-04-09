@@ -54,6 +54,7 @@ RUN apt-get --no-install-recommends -f -y install \
         python3 \
         python3-dev \
         python3-numpy \
+        python3-venv \
         rsync \
         zip \
     && \
