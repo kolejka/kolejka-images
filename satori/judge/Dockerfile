@@ -44,6 +44,7 @@ RUN apt-get --no-install-recommends -f -y install \
         fp-compiler \
         g++ \
         gcc \
+        coinor-libclp-dev \
         make \
         openjdk-${OPENJDK_VERSION}-jdk \
         p7zip-full \

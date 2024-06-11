@@ -1,12 +1,12 @@
-ARG UBUNTU_NAME=mantic
+ARG UBUNTU_NAME=noble
 FROM ubuntu:${UBUNTU_NAME}
 ARG UBUNTU_NAME
-ARG UBUNTU_RELEASE=23.10
-ARG UBUNTU_RELEASE_SIMPLE=2310
+ARG UBUNTU_RELEASE=24.04
+ARG UBUNTU_RELEASE_SIMPLE=2404
 ARG DOTNET_VERSION=7.0
-ARG GRADLE_VERSION=8.4
+ARG GRADLE_VERSION=8.7
 ARG MAVEN_VERSION=3.9.5
-ARG OPENJDK_VERSION=22
+ARG OPENJDK_VERSION=21
 MAINTAINER KOLEJKA <kolejka@matinf.uj.edu.pl>
 ENTRYPOINT ["/bin/bash"]
 WORKDIR /root
@@ -48,6 +48,7 @@ RUN apt-get --no-install-recommends -f -y install \
         fp-compiler \
         g++ \
         gcc \
+        coinor-libclp-dev \
         make \
         openjdk-${OPENJDK_VERSION}-jdk \
         p7zip-full \
