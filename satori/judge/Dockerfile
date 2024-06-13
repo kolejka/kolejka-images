@@ -41,14 +41,15 @@ RUN apt-get -f -y install \
 
 RUN apt-get --no-install-recommends -f -y install \
         cmake \
+        coinor-libclp-dev \
         fp-compiler \
         g++ \
         gcc \
-        coinor-libclp-dev \
         make \
         openjdk-${OPENJDK_VERSION}-jdk \
         p7zip-full \
         p7zip-rar \
+        pkg-config \
         python3 \
         python3-dev \
         python3-numpy \
