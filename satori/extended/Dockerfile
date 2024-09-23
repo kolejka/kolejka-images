@@ -1,21 +1,21 @@
-ARG UBUNTU_NAME=focal
+ARG UBUNTU_NAME=noble
 FROM ubuntu:${UBUNTU_NAME}
 ARG UBUNTU_NAME
-ARG UBUNTU_RELEASE=20.04
-ARG UBUNTU_RELEASE_SIMPLE=2004
-ARG DOTNET_VERSION=7.0
-ARG GRADLE_VERSION=8.4
-ARG MAVEN_VERSION=3.9.5
-ARG OPENJDK_VERSION=17
-MAINTAINER KOLEJKA <kolejka@matinf.uj.edu.pl>
+ARG UBUNTU_RELEASE=24.04
+ARG UBUNTU_RELEASE_SIMPLE=2404
+ARG DOTNET_VERSION=8.0
+ARG GRADLE_VERSION=8.10.1
+ARG MAVEN_VERSION=3.9.9
+ARG OPENJDK_VERSION=21
+LABEL org.opencontainers.authors="KOLEJKA <kolejka@matinf.uj.edu.pl>"
 ENTRYPOINT ["/bin/bash"]
 WORKDIR /root
 
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
-ENV DEBIAN_PRIORITY critical
-ENV DEBIAN_FRONTEND noninteractive
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+ENV DEBIAN_PRIORITY=critical
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN rm -f /etc/apt/sources.list.d/*
 RUN echo "deb     http://archive.ubuntu.com/ubuntu/ ${UBUNTU_NAME}           main restricted universe multiverse" >  /etc/apt/sources.list && \
@@ -76,7 +76,7 @@ RUN apt-get --no-install-recommends -f -y install \
         clang-tools \
         coq \
         erlang \
-        g++-10 \
+        g++ \
         g++-multilib \
         gcc-multilib \
         ghc \

@@ -6,15 +6,15 @@ ARG UBUNTU_RELEASE_SIMPLE=2004
 ARG GRADLE_VERSION=8.4
 ARG MAVEN_VERSION=3.9.5
 ARG OPENJDK_VERSION=17
-MAINTAINER KOLEJKA <kolejka@matinf.uj.edu.pl>
+LABEL org.opencontainers.authors="KOLEJKA <kolejka@matinf.uj.edu.pl>"
 ENTRYPOINT ["/bin/bash"]
 WORKDIR /root
 
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
-ENV DEBIAN_PRIORITY critical
-ENV DEBIAN_FRONTEND noninteractive
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+ENV DEBIAN_PRIORITY=critical
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN rm -f /etc/apt/sources.list.d/*
 RUN echo "deb     http://archive.ubuntu.com/ubuntu/ ${UBUNTU_NAME}           main restricted universe multiverse" >  /etc/apt/sources.list && \
