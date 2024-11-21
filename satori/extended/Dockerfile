@@ -3,7 +3,7 @@ FROM ubuntu:${UBUNTU_NAME}
 ARG UBUNTU_NAME
 ARG UBUNTU_RELEASE=24.04
 ARG UBUNTU_RELEASE_SIMPLE=2404
-ARG DOTNET_VERSION=8.0
+ARG DOTNET_VERSION=9
 ARG GRADLE_VERSION=8.10.1
 ARG MAVEN_VERSION=3.9.9
 ARG OPENJDK_VERSION=21
@@ -96,12 +96,9 @@ RUN apt-get --no-install-recommends -f -y install \
     && \
     true
 
-RUN curl --silent --show-error --fail --location --output /tmp/dotnet.deb "https://packages.microsoft.com/config/ubuntu/${UBUNTU_RELEASE}/packages-microsoft-prod.deb" && \
-    dpkg -i /tmp/dotnet.deb && \
-    rm -f /tmp/dotnet.deb && \
-    apt-get update && \
+RUN add-apt-repository ppa:dotnet/backports && \
     apt-get -f -y install \
-        dotnet-sdk-${DOTNET_VERSION} \
+        dotnet-${DOTNET_VERSION} \
     && \
     true
 
