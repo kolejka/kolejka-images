@@ -98,7 +98,7 @@ RUN apt-get --no-install-recommends -f -y install \
 
 RUN add-apt-repository ppa:dotnet/backports && \
     apt-get -f -y install \
-        dotnet-${DOTNET_VERSION} \
+        dotnet${DOTNET_VERSION} \
     && \
     true
 
