@@ -1,9 +1,9 @@
-ARG UBUNTU_NAME=noble
+ARG UBUNTU_NAME=oracular
 FROM ubuntu:${UBUNTU_NAME}
 ARG UBUNTU_NAME
-ARG UBUNTU_RELEASE=24.04
-ARG UBUNTU_RELEASE_SIMPLE=2404
-ARG DOTNET_VERSION=8.0
+ARG UBUNTU_RELEASE=24.10
+ARG UBUNTU_RELEASE_SIMPLE=2410
+ARG DOTNET_VERSION=9
 ARG GRADLE_VERSION=8.10.1
 ARG MAVEN_VERSION=3.9.9
 ARG OPENJDK_VERSION=21
@@ -45,7 +45,6 @@ RUN apt-get -f -y install \
 RUN apt-get --no-install-recommends -f -y install \
         cmake \
         coinor-libclp-dev \
-        dotnet-sdk-${DOTNET_VERSION} \
         fp-compiler \
         g++ \
         gcc \
@@ -94,6 +93,12 @@ RUN apt-get --no-install-recommends -f -y install \
         python3-numpy \
         sqlite3 \
         valgrind \
+    && \
+    true
+
+RUN add-apt-repository ppa:dotnet/backports && \
+    apt-get -f -y install \
+        dotnet-${DOTNET_VERSION} \
     && \
     true
 
