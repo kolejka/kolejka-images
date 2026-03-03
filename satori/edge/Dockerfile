@@ -1,11 +1,11 @@
-ARG UBUNTU_NAME=questing
+ARG UBUNTU_NAME=resolute
 FROM ubuntu:${UBUNTU_NAME}
 ARG UBUNTU_NAME
-ARG UBUNTU_RELEASE=25.10
-ARG UBUNTU_RELEASE_SIMPLE=2510
-ARG DOTNET_VERSION=9
-ARG GRADLE_VERSION=9.2.1
-ARG MAVEN_VERSION=3.9.11
+ARG UBUNTU_RELEASE=26.04
+ARG UBUNTU_RELEASE_SIMPLE=2604
+ARG DOTNET_VERSION=10
+ARG GRADLE_VERSION=9.3.1
+ARG MAVEN_VERSION=3.9.12
 ARG OPENJDK_VERSION=25
 LABEL org.opencontainers.authors="KOLEJKA <kolejka@matinf.uj.edu.pl>"
 ENTRYPOINT ["/bin/bash"]
@@ -50,8 +50,8 @@ RUN apt-get --no-install-recommends -f -y install \
         gcc \
         make \
         openjdk-${OPENJDK_VERSION}-jdk \
-        p7zip-full \
-        p7zip-rar \
+        7zip \
+        7zip-rar \
         pkg-config \
         python3 \
         python3-dev \
@@ -83,9 +83,11 @@ RUN apt-get --no-install-recommends -f -y install \
         git \
         golang-go \
         gprolog \
+        libboost-dev \
         libcgal-dev \
         libgmp-dev \
         libglpk-dev \
+        libmpfr-dev \
         mlton \
         mono-complete \
         nasm \
