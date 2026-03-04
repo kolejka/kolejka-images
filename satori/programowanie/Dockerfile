@@ -81,5 +81,5 @@ RUN apt-get -y autoremove
 
 COPY pom.xml /tmp/
 RUN sed -e "s|\(</settings>\)|<localRepository>/opt/maven/repository</localRepository>\1|" -i /opt/maven/conf/settings.xml && \
-    mvn -f /tmp/pom.xml dependency:go-offline && \
+    mvn -f /tmp/pom.xml dependency:go-offline dependency:resolve-plugins && \
     rm /tmp/pom.xml
